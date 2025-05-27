@@ -1,0 +1,161 @@
+MIT License
+
+Copyright (c) 2025 YOLOv12-Face Lightning.ai Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Licenses
+
+This project builds upon several open-source projects. We acknowledge and respect
+the licenses of these dependencies:
+
+### Ultralytics YOLO
+- **License**: AGPL-3.0
+- **Source**: https://github.com/ultralytics/ultralytics
+- **Usage**: Core YOLO implementation
+- **Note**: Commercial licensing available from Ultralytics
+
+### PyTorch
+- **License**: BSD-3-Clause
+- **Source**: https://github.com/pytorch/pytorch
+- **Usage**: Deep learning framework
+
+### Lightning
+- **License**: Apache-2.0
+- **Source**: https://github.com/Lightning-AI/lightning
+- **Usage**: Training framework and cloud platform
+
+### OpenCV
+- **License**: Apache-2.0
+- **Source**: https://github.com/opencv/opencv-python
+- **Usage**: Computer vision operations
+
+### NumPy
+- **License**: BSD-3-Clause
+- **Source**: https://github.com/numpy/numpy
+- **Usage**: Numerical computations
+
+### Matplotlib
+- **License**: PSF-based (matplotlib license)
+- **Source**: https://github.com/matplotlib/matplotlib
+- **Usage**: Plotting and visualization
+
+### Pillow
+- **License**: HPND (Historical Permission Notice and Disclaimer)
+- **Source**: https://github.com/python-pillow/Pillow
+- **Usage**: Image processing
+
+### PyYAML
+- **License**: MIT
+- **Source**: https://github.com/yaml/pyyaml
+- **Usage**: YAML configuration parsing
+
+### Pandas
+- **License**: BSD-3-Clause
+- **Source**: https://github.com/pandas-dev/pandas
+- **Usage**: Data manipulation
+
+### Seaborn
+- **License**: BSD-3-Clause
+- **Source**: https://github.com/mwaskom/seaborn
+- **Usage**: Statistical plotting
+
+### tqdm
+- **License**: MPL-2.0
+- **Source**: https://github.com/tqdm/tqdm
+- **Usage**: Progress bars
+
+### gdown
+- **License**: MIT
+- **Source**: https://github.com/wkentaro/gdown
+- **Usage**: Google Drive downloads
+
+---
+
+## Dataset Acknowledgments
+
+### WIDERFace Dataset
+- **Source**: http://shuoyang1213.me/WIDERFACE/
+- **Paper**: "WIDER FACE: A Face Detection Benchmark" by Yang et al.
+- **License**: Please refer to the original dataset license
+- **Usage**: Training and evaluation of face detection models
+
+---
+
+## Attribution
+
+If you use this software in your research or commercial product, please consider citing:
+
+```bibtex
+@software{yolov12_face_lightning,
+  title={YOLOv12-Face Lightning.ai: Production-Ready Face Detection},
+  author={YOLOv12-Face Team},
+  year={2025},
+  url={https://github.com/your-repo/yolov12-face-lightning},
+  version={1.0.0}
+}
+```
+
+---
+
+## Commercial Use
+
+This project is licensed under the MIT License, which permits commercial use.
+However, please note:
+
+1. **Ultralytics YOLO** is licensed under AGPL-3.0. For commercial use of YOLO models,
+   you may need to obtain a commercial license from Ultralytics.
+
+2. **WIDERFace Dataset** has its own terms of use. Please ensure compliance
+   with the dataset license for commercial applications.
+
+3. **Lightning.ai** may have separate terms for commercial cloud usage.
+
+For commercial deployment, we recommend:
+- Reviewing all dependency licenses
+- Obtaining necessary commercial licenses
+- Consulting with legal counsel if needed
+
+---
+
+## Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. THE AUTHORS
+SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.
+
+Users are responsible for ensuring compliance with all applicable laws and
+regulations when using this software, including but not limited to:
+- Privacy laws (GDPR, CCPA, etc.)
+- Data protection regulations
+- Export control laws
+- Industry-specific compliance requirements
+
+---
+
+## Contact
+
+For licensing questions or commercial inquiries:
+- Email: licensing@yolov12-face.com
+- GitHub: https://github.com/your-repo/yolov12-face-lightning
+
+For Ultralytics commercial licensing:
+- Website: https://ultralytics.com/license
+- Email: hello@ultralytics.com

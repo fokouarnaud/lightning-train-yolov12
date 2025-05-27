@@ -1,0 +1,180 @@
+# Configuration principale YOLOv12-Face Lightning.ai
+# =======================================================
+
+# Métadonnées du projet
+project:
+  name: "yolov12-face-detection"
+  version: "1.0.0"
+  description: "YOLOv12-Face pour détection faciale sur Lightning.ai"
+  author: "Cedric"
+
+# Configuration du modèle
+model:
+  # Taille du modèle: n(ano), s(mall), m(edium), l(arge), x(tra-large)
+  size: "s"
+  # Fichier YAML du modèle (sera généré automatiquement)
+  yaml_path: "configs/yolov12s.yaml"
+  # Poids pré-entraînés (laisser vide pour entraînement from scratch)
+  pretrained: "yolov12s.pt"
+  # Nombre de classes (1 pour détection faciale)
+  num_classes: 1
+  # Noms des classes
+  class_names: ["face"]
+
+# Configuration des données
+data:
+  # Type de dataset
+  dataset: "widerface"  # ou "custom"
+  # Chemin local vers les données
+  path: "./datasets"
+  # URLs de téléchargement des datasets
+  urls:
+    widerface_train: "https://drive.google.com/file/d/15hGDLhsx8bLgLcIRD5DhYt5iBxnjNF1M/view"
+    widerface_val: "https://drive.google.com/file/d/1GUCogbp16PMGa39thoMMeWxp7Rp5oM8Q/view"
+    widerface_test: "https://drive.google.com/file/d/1HIfDbVEWKmsYKJZm4lchTBDLW5N7dY5T/view"
+  # Structure des données
+  train_images: "datasets/widerface/train/images"
+  train_labels: "datasets/widerface/train/labels"
+  val_images: "datasets/widerface/val/images"
+  val_labels: "datasets/widerface/val/labels"
+  # Cache pour accélérer le chargement
+  cache: true
+  # Augmentation des données
+  augmentation:
+    hsv_h: 0.015  # image HSV-Hue augmentation (fraction)
+    hsv_s: 0.7    # image HSV-Saturation augmentation (fraction)
+    hsv_v: 0.4    # image HSV-Value augmentation (fraction)
+    degrees: 0.0  # image rotation (+/- deg)
+    translate: 0.1 # image translation (+/- fraction)
+    scale: 0.5    # image scale (+/- gain)
+    shear: 0.0    # image shear (+/- deg)
+    perspective: 0.0 # image perspective (+/- fraction), range 0-0.001
+    flipud: 0.0   # image flip up-down (probability)
+    fliplr: 0.5   # image flip left-right (probability)
+    mosaic: 1.0   # image mosaic (probability)
+    mixup: 0.0    # image mixup (probability)
+
+# Configuration de l'entraînement
+training:
+  # Paramètres principaux
+  epochs: 100
+  batch_size: 16
+  img_size: 640
+  # Optimiseur
+  optimizer: "AdamW"
+  lr0: 0.001  # learning rate initiale
+  lrf: 0.01   # learning rate finale (lr0 * lrf)
+  momentum: 0.937
+  weight_decay: 0.0005
+  # Scheduler
+  scheduler: "cosine"  # linear, cosine
+  warmup_epochs: 3
+  warmup_momentum: 0.8
+  warmup_bias_lr: 0.1
+  # Régularisation
+  box: 0.05     # box loss gain
+  cls: 0.5      # cls loss gain
+  cls_pw: 1.0   # cls BCELoss positive_weight
+  obj: 1.0      # obj loss gain (scale with pixels)
+  obj_pw: 1.0   # obj BCELoss positive_weight
+  iou_t: 0.20   # IoU training threshold
+  anchor_t: 4.0 # anchor-multiple threshold
+  # Augmentation pendant l'entraînement
+  copy_paste: 0.0 # segment copy-paste (probability)
+  # Seuils de confiance
+  conf_thres: 0.001 # confidence threshold
+  iou_thres: 0.6    # NMS IoU threshold
+
+# Configuration de l'évaluation
+evaluation:
+  # Métriques à calculer
+  metrics: ["precision", "recall", "mAP50", "mAP50-95"]
+  # Seuils pour les métriques
+  conf_thres: 0.001
+  iou_thres: 0.6
+  # Sauvegarde des prédictions
+  save_txt: true
+  save_conf: true
+  save_json: true
+  # Visualisations
+  save_plots: true
+  plot_confusion_matrix: true
+
+# Configuration de l'export
+export:
+  # Formats de sortie
+  formats: ["onnx", "torchscript", "coreml"]
+  # Optimisations ONNX
+  onnx:
+    opset: 12
+    simplify: true
+    dynamic: false
+    # Optimisations spécifiques à Flutter/Mobile
+    mobile_optimization: true
+  # Optimisations TensorRT (si disponible)
+  tensorrt:
+    workspace: 4  # workspace size in GB
+    precision: "fp16"  # fp32, fp16, int8
+
+# Configuration Lightning.ai spécifique
+lightning:
+  # Monitoring et logging
+  log_every_n_steps: 50
+  save_every_n_epochs: 10
+  # Gestion des checkpoints
+  checkpoint:
+    monitor: "val/mAP50"
+    mode: "max"
+    save_top_k: 3
+    save_last: true
+  # Early stopping
+  early_stopping:
+    monitor: "val/mAP50"
+    patience: 20
+    mode: "max"
+  # Ressources
+  accelerator: "gpu"  # cpu, gpu, tpu
+  devices: 1
+  precision: "16-mixed"  # 32, 16, 16-mixed, bf16
+  # Stratégies de parallélisation (si multi-GPU)
+  strategy: "auto"  # ddp, fsdp, auto
+  # Optimisations mémoire
+  gradient_checkpointing: false
+  compile: false  # PyTorch 2.0 compile (peut accélérer)
+
+# Configuration des chemins de sortie
+output:
+  base_dir: "./outputs"
+  models_dir: "./outputs/models"
+  logs_dir: "./outputs/logs"
+  exports_dir: "./outputs/exports"
+  results_dir: "./outputs/results"
+  # Nommage automatique des runs
+  run_name: "yolov12s_{timestamp}"
+  # Sauvegarde des configs utilisées
+  save_config: true
+
+# Configuration du debugging
+debug:
+  # Mode debug (plus de logs, visualisations)
+  enabled: false
+  # Profiling des performances
+  profiler: null  # simple, advanced, pytorch
+  # Vérifications supplémentaires
+  check_val_every_n_epoch: 1
+  # Limitation pour tests rapides
+  limit_train_batches: null  # float entre 0-1 ou int
+  limit_val_batches: null
+  fast_dev_run: false  # True pour test rapide
+
+# Configuration de l'environnement
+environment:
+  # Variables d'environnement nécessaires
+  pythonpath: "."
+  # Graine pour la reproductibilité
+  seed: 42
+  # Workers pour le chargement des données
+  num_workers: 4
+  # Gestion de la mémoire
+  pin_memory: true
+  persistent_workers: true

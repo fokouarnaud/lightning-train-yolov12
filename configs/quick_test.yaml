@@ -1,0 +1,123 @@
+# Configuration Test Rapide YOLOv12-Face
+# =====================================
+# Optimisée pour tests rapides et validation sur Lightning.ai
+
+project:
+  name: "yolov12-face-quick-test"
+  version: "1.0.0"
+  description: "Test rapide YOLOv12-Face pour validation"
+  author: "Cedric"
+
+# Configuration modèle léger pour test
+model:
+  size: "n"                    # Nano - le plus rapide
+  yaml_path: "configs/yolov12n.yaml"
+  pretrained: "yolov12n.pt"
+  num_classes: 1
+  class_names: ["face"]
+
+# Données
+data:
+  dataset: "widerface"
+  path: "./datasets"
+  cache: false                 # Pas de cache pour test rapide
+  augmentation:
+    hsv_h: 0.01               # Augmentations réduites
+    hsv_s: 0.3
+    hsv_v: 0.2
+    degrees: 0.0              # Pas de rotation
+    translate: 0.05           # Translation minimale
+    scale: 0.2                # Scale réduit
+    shear: 0.0                # Pas de shear
+    perspective: 0.0          # Pas de perspective
+    flipud: 0.0               # Pas de flip vertical
+    fliplr: 0.3               # Flip horizontal réduit
+    mosaic: 0.5               # Mosaic réduit
+    mixup: 0.0                # Pas de mixup
+
+# Entraînement rapide
+training:
+  epochs: 20                  # Peu d'epochs pour test
+  batch_size: 8               # Batch petit pour compatibilité
+  img_size: 416               # Image plus petite = plus rapide
+  optimizer: "AdamW"
+  lr0: 0.01                   # Learning rate plus élevé
+  lrf: 0.1                    # Decay plus rapide
+  momentum: 0.9
+  weight_decay: 0.0001        # Régularisation réduite
+  
+  # Seuils
+  conf_thres: 0.1             # Seuil bas pour voir plus de détections
+  iou_thres: 0.5
+  
+  # Poids des pertes (optimisés pour vitesse)
+  box: 0.05
+  cls: 0.3
+  obj: 0.7
+
+# Évaluation simple
+evaluation:
+  metrics: ["mAP50", "precision", "recall"]
+  conf_thres: 0.1
+  iou_thres: 0.5
+  save_txt: false
+  save_conf: false
+  save_json: false
+  save_plots: true
+  plot_confusion_matrix: false
+
+# Export basique
+export:
+  formats: ["onnx"]
+  onnx:
+    opset: 11
+    simplify: true
+    dynamic: false
+
+# Lightning.ai optimisé pour test
+lightning:
+  log_every_n_steps: 10       # Logs fréquents
+  save_every_n_epochs: 5      # Sauvegardes fréquentes
+  
+  checkpoint:
+    monitor: "val/mAP50"
+    mode: "max"
+    save_top_k: 2             # Garder moins de checkpoints
+    save_last: true
+  
+  early_stopping:
+    monitor: "val/mAP50"
+    patience: 8               # Patience réduite
+    mode: "max"
+  
+  accelerator: "auto"
+  devices: 1
+  precision: "16-mixed"       # Précision mixte pour vitesse
+  strategy: "auto"
+
+# Sorties
+output:
+  base_dir: "./outputs"
+  models_dir: "./outputs/models"
+  logs_dir: "./outputs/logs"
+  exports_dir: "./outputs/exports"
+  results_dir: "./outputs/results"
+  run_name: "quick_test_{timestamp}"
+  save_config: true
+
+# Debug activé pour test
+debug:
+  enabled: true
+  profiler: "simple"
+  check_val_every_n_epoch: 1
+  limit_train_batches: 0.1    # Utiliser seulement 10% des données
+  limit_val_batches: 0.2      # 20% de validation
+  fast_dev_run: false
+
+# Environnement
+environment:
+  pythonpath: "."
+  seed: 42
+  num_workers: 2              # Moins de workers pour test
+  pin_memory: true
+  persistent_workers: false

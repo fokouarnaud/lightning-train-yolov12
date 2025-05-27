@@ -1,0 +1,182 @@
+# Configuration Production YOLOv12-Face
+# ====================================
+# Optimisée pour résultats de production sur Lightning.ai
+
+project:
+  name: "yolov12-face-production"
+  version: "1.0.0"
+  description: "YOLOv12-Face production-ready avec optimisations complètes"
+  author: "Cedric"
+
+# Configuration modèle pour production
+model:
+  size: "s"                    # Small - bon compromis vitesse/précision
+  yaml_path: "configs/yolov12s.yaml"
+  pretrained: "yolov12s.pt"
+  num_classes: 1
+  class_names: ["face"]
+
+# Données optimisées
+data:
+  dataset: "widerface"
+  path: "./datasets"
+  cache: true                  # Cache activé pour performance
+  augmentation:
+    # Augmentations optimisées pour visages
+    hsv_h: 0.015              # Variation légère de teinte
+    hsv_s: 0.7                # Saturation modérée
+    hsv_v: 0.4                # Luminosité modérée
+    degrees: 5.0              # Rotation légère acceptable pour visages
+    translate: 0.1            # Translation standard
+    scale: 0.5                # Scale modéré
+    shear: 0.0                # Pas de shear pour préserver les visages
+    perspective: 0.0          # Pas de perspective
+    flipud: 0.0               # Pas de flip vertical pour visages
+    fliplr: 0.5               # Flip horizontal standard
+    mosaic: 0.8               # Mosaic réduit pour préserver les visages
+    mixup: 0.1                # Mixup léger
+
+# Entraînement production
+training:
+  epochs: 150                 # Assez d'epochs pour convergence
+  batch_size: 16              # Batch optimal pour YOLOv12s
+  img_size: 640               # Taille standard
+  optimizer: "AdamW"
+  lr0: 0.001                  # Learning rate conservateur
+  lrf: 0.01                   # Decay standard
+  momentum: 0.937             # Momentum YOLO standard
+  weight_decay: 0.0005        # Régularisation standard
+  
+  # Scheduler
+  scheduler: "cosine"
+  warmup_epochs: 3
+  warmup_momentum: 0.8
+  warmup_bias_lr: 0.1
+  
+  # Seuils optimisés pour visages
+  conf_thres: 0.001           # Seuil bas pour entraînement
+  iou_thres: 0.6              # IoU standard
+  
+  # Poids des pertes optimisés pour détection faciale
+  box: 0.05                   # Poids des boîtes
+  cls: 0.5                    # Poids classification
+  obj: 1.0                    # Poids objectness (important pour visages)
+  
+  # Optimisations avancées
+  copy_paste: 0.0             # Pas de copy-paste pour visages
+  anchor_t: 4.0               # Seuil anchor standard
+
+# Évaluation complète
+evaluation:
+  metrics: ["precision", "recall", "mAP50", "mAP50-95"]
+  conf_thres: 0.001
+  iou_thres: 0.6
+  save_txt: true
+  save_conf: true
+  save_json: true
+  save_plots: true
+  plot_confusion_matrix: true
+
+# Export multi-format pour production
+export:
+  formats: ["onnx", "torchscript", "coreml"]
+  onnx:
+    opset: 12
+    simplify: true
+    dynamic: false
+    mobile_optimization: true
+  tensorrt:
+    workspace: 4
+    precision: "fp16"
+
+# Lightning.ai production
+lightning:
+  log_every_n_steps: 50
+  save_every_n_epochs: 10
+  
+  checkpoint:
+    monitor: "val/mAP50"
+    mode: "max"
+    save_top_k: 5             # Garder les 5 meilleurs
+    save_last: true
+  
+  early_stopping:
+    monitor: "val/mAP50"
+    patience: 25              # Patience pour convergence complète
+    mode: "max"
+    min_delta: 0.001          # Amélioration minimale
+  
+  accelerator: "gpu"          # GPU forcé pour production
+  devices: 1
+  precision: "16-mixed"       # Précision mixte pour vitesse
+  strategy: "auto"
+  
+  # Optimisations avancées
+  gradient_checkpointing: false
+  compile: false              # PyTorch 2.0 compile (peut être activé)
+
+# Sorties organisées
+output:
+  base_dir: "./outputs"
+  models_dir: "./outputs/models"
+  logs_dir: "./outputs/logs"
+  exports_dir: "./outputs/exports"
+  results_dir: "./outputs/results"
+  run_name: "production_{timestamp}"
+  save_config: true
+
+# Debug désactivé pour production
+debug:
+  enabled: false
+  profiler: null
+  check_val_every_n_epoch: 1
+  limit_train_batches: null
+  limit_val_batches: null
+  fast_dev_run: false
+
+# Environnement production
+environment:
+  pythonpath: "."
+  seed: 42                    # Reproductibilité
+  num_workers: 4              # Utiliser tous les workers disponibles
+  pin_memory: true
+  persistent_workers: true    # Réduire l'overhead de création
+
+# Optimisations spécifiques Lightning.ai
+lightning_optimizations:
+  # Optimisations mémoire
+  max_memory_usage: 0.9       # Utiliser 90% de la mémoire GPU
+  gradient_accumulation: 1    # Pas d'accumulation par défaut
+  
+  # Optimisations réseau
+  find_unused_parameters: false
+  
+  # Optimisations I/O
+  dataloader_pin_memory: true
+  dataloader_persistent_workers: true
+  
+  # Monitoring avancé
+  track_grad_norm: 2          # Tracker les gradients
+  log_gpu_memory: true
+  
+  # Sauvegarde intelligente
+  save_weights_only: false    # Sauver l'état complet
+  save_on_train_epoch_end: false  # Sauver seulement après validation
+
+# Hyperparamètres spécifiques aux visages
+face_optimizations:
+  # Anchors optimisés pour visages (calculés sur WIDERFace)
+  custom_anchors: true
+  anchor_ratios: [0.8, 1.0, 1.2]  # Ratios typiques des visages
+  
+  # Augmentations spécifiques
+  face_aware_augmentation: true
+  preserve_face_ratio: true
+  
+  # Post-processing optimisé
+  nms_agnostic: false         # NMS spécifique à la classe
+  merge_nms: false            # Pas de merge pour visages
+  
+  # Métriques spéciales
+  small_face_detection: true  # Optimisation petits visages
+  dense_scene_handling: true  # Gestion scènes denses

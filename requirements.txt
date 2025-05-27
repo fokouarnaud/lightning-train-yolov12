@@ -1,0 +1,110 @@
+# YOLOv12-Face Lightning.ai - Dépendances
+# ==========================================
+# Version optimisée pour Lightning.ai cloud environment
+
+# Framework principal
+ultralytics>=8.2.0              # YOLOv8/v12 framework
+torch>=2.0.0                    # PyTorch
+torchvision>=0.15.0             # Vision utilities
+torchaudio>=2.0.0               # Audio utilities (pour compatibilité)
+
+# Computer Vision
+opencv-python>=4.8.0            # Computer vision
+Pillow>=10.0.0                  # Image processing
+albumentations>=1.3.0           # Advanced augmentations
+imgaug>=0.4.0                   # Image augmentation
+
+# Data Science
+numpy>=1.24.0                   # Numerical computing
+pandas>=2.0.0                   # Data manipulation
+scipy>=1.10.0                   # Scientific computing
+scikit-learn>=1.3.0             # Machine learning utils
+matplotlib>=3.7.0               # Plotting
+seaborn>=0.12.0                 # Statistical plotting
+
+# Deep Learning utilities
+tensorboard>=2.13.0             # Tensorboard logging
+wandb>=0.15.0                   # Weights & Biases (optional)
+lightning>=2.0.0                # PyTorch Lightning
+
+# Configuration & I/O
+PyYAML>=6.0                     # YAML parsing
+omegaconf>=2.3.0                # Configuration management
+hydra-core>=1.3.0               # Configuration framework (optional)
+
+# Progress & Monitoring
+tqdm>=4.65.0                    # Progress bars
+psutil>=5.9.0                   # System monitoring
+gpustat>=1.1.0                  # GPU monitoring
+
+# File handling
+gdown>=4.7.0                    # Google Drive downloads
+requests>=2.31.0                # HTTP requests
+zipfile36>=0.1.3                # ZIP file handling
+
+# Export formats
+onnx>=1.14.0                    # ONNX export
+onnxruntime>=1.15.0             # ONNX runtime
+openvino>=2023.0.0              # Intel OpenVINO (optional)
+
+# Mobile/Edge deployment
+coremltools>=6.3.0              # Core ML export (macOS)
+tensorflow>=2.13.0              # TensorFlow (for some exports)
+
+# Development & Testing
+pytest>=7.4.0                   # Testing framework
+pytest-cov>=4.1.0               # Coverage testing
+black>=23.0.0                   # Code formatting
+flake8>=6.0.0                   # Linting
+mypy>=1.5.0                     # Type checking
+
+# Jupyter & Notebooks
+jupyter>=1.0.0                  # Jupyter notebooks
+ipywidgets>=8.0.0               # Interactive widgets
+notebook>=6.5.0                 # Notebook server
+
+# Utilities
+colorlog>=6.7.0                 # Colored logging
+rich>=13.0.0                    # Rich terminal output
+click>=8.1.0                    # CLI framework
+python-dotenv>=1.0.0            # Environment variables
+
+# Lightning.ai specific optimizations
+lightning-cloud>=0.5.0          # Lightning cloud utilities (optional)
+torch-tb-profiler>=0.4.0        # PyTorch profiler
+memory-profiler>=0.60.0         # Memory profiling
+
+# Optional: Advanced features
+# thop>=0.1.0                   # FLOPs calculation
+# fvcore>=0.1.0                 # Facebook core utilities
+# timm>=0.9.0                   # Pre-trained models
+# transformers>=4.30.0          # Hugging Face transformers (optional)
+
+# Performance optimizations (Lightning.ai)
+accelerate>=0.20.0              # Hugging Face accelerate
+datasets>=2.14.0                # Datasets handling
+tokenizers>=0.13.0              # Fast tokenizers
+
+# Specific versions for stability
+# Pin critical versions for reproducibility
+certifi>=2023.7.22             # SSL certificates
+charset-normalizer>=3.2.0       # Character encoding
+idna>=3.4                       # Domain name handling
+urllib3>=2.0.4                  # HTTP library
+
+# Optional: Advanced monitoring (remove # to enable)
+# mlflow>=2.5.0                 # MLflow tracking
+# neptune-client>=1.3.0         # Neptune tracking
+# clearml>=1.11.0               # ClearML tracking
+
+# Development utilities
+pre-commit>=3.3.0               # Pre-commit hooks
+isort>=5.12.0                   # Import sorting
+autopep8>=2.0.0                 # PEP8 formatting
+
+# Documentation (optional)
+# sphinx>=7.1.0                 # Documentation generation
+# sphinx-rtd-theme>=1.3.0       # ReadTheDocs theme
+
+# Note: Lightning.ai provides optimized versions of some packages
+# The platform may override certain versions for better performance

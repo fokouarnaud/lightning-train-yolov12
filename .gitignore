@@ -1,0 +1,341 @@
+# YOLOv12-Face Lightning.ai - .gitignore
+# =====================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# PyCharm
+.idea/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Datasets et données
+datasets/downloads/
+datasets/raw/
+datasets/widerface/
+datasets/custom/
+datasets/temp/
+datasets/*.zip
+datasets/*.tar.gz
+datasets/*.tar
+*.zip
+*.tar.gz
+*.tar
+
+# Modèles et poids
+*.pt
+*.pth
+*.onnx
+*.trt
+*.engine
+*.pb
+*.mlmodel
+*.tflite
+*.torchscript
+weights/
+models/
+checkpoints/
+
+# Sorties d'entraînement
+outputs/
+runs/
+results/
+logs/
+experiments/
+wandb/
+mlruns/
+.wandb/
+
+# Cache
+.cache/
+*.cache
+__pycache__/
+.pytest_cache/
+
+# Logs
+*.log
+*.out
+*.err
+logs/
+log/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.exe
+*.msi
+*.msm
+*.msp
+
+# Linux
+*.AppImage
+*.deb
+*.rpm
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Images temporaires et previews
+preview/
+samples/
+demo_images/
+test_images/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.webp
+
+# Exceptions pour garder certaines images importantes
+!assets/logo.png
+!assets/banner.jpg
+!docs/images/
+!examples/sample_images/
+
+# Configuration sensible
+.env
+.env.local
+.env.production
+config.local.yaml
+secrets.yaml
+api_keys.txt
+
+# Lightning.ai spécifique
+.lightning/
+lightning_logs/
+.studio/
+
+# TensorBoard
+events.out.tfevents.*
+tensorboard/
+
+# Ultralytics YOLO cache
+.yolo_cache/
+yolo_cache/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Profiling
+*.prof
+*.cprof
+
+# Documentation builds
+docs/_build/
+docs/build/
+
+# Node.js (si utilisé pour des outils)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sass
+.sass-cache/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# ESLint cache
+.eslintcache
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Dossiers de build spécifiques au projet
+build/
+dist/
+
+# Fichiers de configuration automatiquement générés
+configs/generated/
+auto_generated_configs/
+
+# Métriques et rapports
+reports/
+metrics/
+benchmarks/
+
+# Fichiers de test temporaires
+test_outputs/
+validation_results/
+
+# Scripts de déploiement contenant des secrets
+deploy_secrets.sh
+production_keys.yaml
+
+# Base de données locales
+*.db
+*.sqlite
+*.sqlite3
+
+# Fichiers de verrouillage
+*.lock
+package-lock.json
+poetry.lock
+
+# Compilation artifacts
+*.o
+*.a
+*.la
+*.lo
+*.so
+*.dylib
+*.dll
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Autres
+.coverage
+.pytest_cache
+.mypy_cache
